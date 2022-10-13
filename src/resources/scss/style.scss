@@ -1,0 +1,30 @@
+.card:hover {
+    transform: scale(1.1);
+}
+.card {
+    transition: transform 0.2s ease;
+}
+.card-margin {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.decoration-none {
+    text-decoration: none;
+}
+
+.bg-image {
+    background-image: url('https://previews.123rf.com/images/serezniy/serezniy1811/serezniy181150876/113900656-colorful-precious-stones-for-jewellery-on-white-background.jpg');
+    height: 100vh;
+}
+
+.animation_hover:hover{
+    transform: scale(1.1);
+}
+
+.animation_hover{
+    transition: transform 0.2s ease;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+

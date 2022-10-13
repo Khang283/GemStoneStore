@@ -1,0 +1,118 @@
+<div>
+    <br>
+    <h1 class="text-success d-flex justify-content-center">Thêm sản phẩm mới <i class="bi bi-gem"></i></h1>
+    <br>
+    <form method="post" action="/products/new/create" class="d-flex justify-content-center">
+        <fieldset>
+            <div class="form-group text-center">
+                <label class="form-label">Tên sản phẩm</label>
+                <input type="text" name="name" id="nameTextbox" class="form-control" placeholder="" >
+                <span id="nameResult"></span>
+                <br>
+                <label class="form-label">Hình ảnh (URL)</label>
+                <input type="text" name="image" id="imageTextbox" class="form-control" placeholder="">
+                <span id="imageResult"></span>
+                <br>
+                <label class="form-label">Giá (VNĐ)</label>
+                <input type="text" name="price" id="priceTextbox" class="form-control" placeholder="">
+                <span id="priceSpan"></span>
+                <br>
+                <label class="form-label">Loại trang sức</label>
+                <select name="type" id="">
+                    <option value="ring">Nhẫn</option>
+                    <option value="bracelet">Vòng tay</option>
+                    <option value="watch">Đồng hồ</option>
+                    <option value="earing">Bông tai</option>
+                    <option value="necklace">Dây chuyền</option>
+                </select>
+                <br>
+                <label class="form-label">Loại vật liệu</label>
+                <select name="material" id="">
+                    <option value="Gold">Vàng</option>
+                    <option value="Plantium">Bạch kim</option>
+                    <option value="Diamond">Kim cương</option>
+                    <option value="Silver">Bạc</option>
+                </select>
+                <br>
+                <label class="form-label">Mô tả sản phẩm</label>
+                <textarea class="form-control" name="description" id="" rows="3"></textarea>
+            </div>
+            <br>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-info btn-lg disabled" id="btnSubmit">Thêm</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript">
+    const btnSubmit=document.getElementById('btnSubmit');
+    const nameTextbox = document.getElementById('nameTextbox');
+    const imageTextbox = document.getElementById('imageTextbox');
+    var validName=false, validImage=false, validPrice=false;
+    function validSubmit(){
+        if(validName===true && validImage===true && validPrice===true){
+            btnSubmit.classList.remove('disabled');
+        }
+        else{
+            btnSubmit.classList.add('disabled')
+        }
+    }
+
+    priceTextbox.addEventListener('change', ()=>{
+        const price = priceTextbox.value;
+        const priceRegex = /^[0-9]*$/gm;
+        const priceSpan = document.getElementById('priceSpan');
+        if(priceRegex.test(price))
+        {
+            priceSpan.innerHTML='Giá hợp lệ';
+            priceSpan.style.color='green';
+            validPrice=true;
+        }
+        else{
+            priceSpan.innerHTML='Giá không hợp lệ';
+            priceSpan.style.color='red';
+            validPrice=false;
+        }
+        validSubmit();
+    })
+
+    nameTextbox.addEventListener('change', ()=>{
+        const name = nameTextbox.value ;
+        const nameRegex = /^([aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ]+)((\s{1}[aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9]+))+$/gm ;
+        const resultSpan=document.getElementById('nameResult');
+        if(nameRegex.test(name))
+        {
+            resultSpan.innerHTML='Tên sản phẩm hợp lệ';
+            resultSpan.style.color='green';
+            validName=true;
+        }
+        else
+        {
+            resultSpan.innerHTML='Tên sản phẩm không hợp lệ';
+            resultSpan.style.color='red';
+            validName=false;
+        }
+        validSubmit();
+    })
+    
+    imageTextbox.addEventListener('change', ()=>{
+        const imageURL = imageTextbox.value;
+        const imageRegex = /(https?:\/\/.*\.(?:png|jpg))/gm ;
+        const imageSpan=document.getElementById('imageResult');
+        if(imageRegex.test(imageURL))
+        {
+            imageSpan.innerHTML='Đường dẫn hợp lệ';
+            imageSpan.style.color='green';
+            validImage=true;
+        }
+        else
+        {
+            imageSpan.innerHTML='Đường dẫn không hợp lệ';
+            imageSpan.style.color='red';
+            validImage=false;
+        }
+        validSubmit();
+    })
+    
+</script>

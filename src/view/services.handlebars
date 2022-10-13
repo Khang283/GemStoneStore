@@ -1,0 +1,41 @@
+<h1 class="text-center">Bảng danh sách dịch vụ</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-end">
+            <a class="btn btn-success" href="/services/new">
+            <i class="bi bi-plus-circle"></i>&nbsp;Thêm
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="text-center ">
+    <table class="table mt-4 table-hover ">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Dịch vụ</th>
+                <th scope="col">Giá</td>
+                <th scope="col">Thời gian hoàn thành dự kiến</td>
+                <th scope="col">Loại sản phẩm</th>
+            </tr>
+        </thead>
+        <tbody class="table-active">
+            {{#each services}}
+            <tr>
+                <th scope="row">{{indexNum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.finish_time}} ngày</td>
+                <td>{{this.product_type}}</td>
+                <td>
+                    <div class="text-end">
+                        <a href="/services/delete/{{this._id}}" class="btn btn-danger"><i class="bi bi-x-circle"></i>&nbsp;Xóa</a>
+                        <a href="/services/edit/{{this._id}}" class="btn btn-info"><i class="bi bi-pencil-square"></i>&nbsp;Chỉnh sửa</a>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,33 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-5 animation_hover">
+        <img src="{{products.image}}" alt="" class="w-50">
+    </div>
+    <div class="col-5">
+        <h1>{{products.name}}</h1>
+        <p>Giá: {{products.price}}</p>
+        <button class="btn btn-outline-success"><i class="bi bi-bag-fill"></i> Thêm vào giỏ hàng</button>
+    </div>
+</div>
+
+<div class="">
+    <h2 class="text-primary">Mô tả sản phẩm</h2>
+    <p class="text-dark">{{products.description}}</p>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item w-50">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed text-secondary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Thông tin chi tiết
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample" style="">
+                <div class="accordion-body">
+                    <p>Loại: {{products.type}}</p>
+                    <p>Giá: {{products.price}} VNĐ</p>
+                    <p>Vật liệu: {{products.material}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
