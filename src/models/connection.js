@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
+require('dotenv').config({path: './.env'});
 
+const URL = process.env.DATABASE_URL;
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/GemStoneStore');
+        await mongoose.connect(URL,{
+            useNewUrlParser: true, 
+            useUnifiedTopology: true,
+        });
         console.log('Connect successfully');
     } catch (error) {
         console.log('Connect fail');

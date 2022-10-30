@@ -7,13 +7,11 @@ const path = require('path');
 const routes = require('./routes');
 const app = express();
 const db = require('./models/connection');
-const PORT = 5000;
+const PORT = 5001;
+require('dotenv').config({path: '.env'});
 
 //CONNECT TO DB
 db.connect();
-
-//FOR DEBUG
-app.use(morgan('combined'));
 
 //USE STATIC FILES
 app.use(express.static(path.join(__dirname, 'resources')));
@@ -27,6 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(methodOverride('X-HTTP-Method-Override'));
+
+//FOR DEBUG
+app.use(morgan('combined'));
 
 //HANDLEBARS TEMPLATE
 app.engine('handlebars', engine({
@@ -48,6 +49,6 @@ app.set('views', path.join(__dirname, '/view'));
 //Routes
 routes(app);
 
-app.listen(PORT, () => {
-    console.log('Server start on port 5000');
+let server = app.listen(process.env.PORT || PORT, () => {
+    console.log(`Server start on port ${server.address().port}`);
 });
