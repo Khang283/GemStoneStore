@@ -8,14 +8,13 @@ const routes = require('./routes');
 const app = express();
 const db = require('./models/connection');
 const PORT = 5001;
-require('dotenv').config({path: '.env'});
+const dotenv=require('dotenv').config({path: '.env'});
 
 //CONNECT TO DB
 db.connect();
 
 //USE STATIC FILES
 app.use(express.static(path.join(__dirname, 'resources')));
-console.log(path.join(__dirname, 'node_modules/bootstrap/dist'));
 
 //FOR USING JSON
 app.use(express.json());

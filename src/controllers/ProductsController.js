@@ -14,7 +14,7 @@ class ProductsController {
     //[GET] /products/:page
     index(req, res){
         const page=req.params.page; //chỉ số trang
-        const perPage=4; //số document tối đa trong 1 trang
+        const perPage=8; //số document tối đa trong 1 trang
         Products.find() //tìm tất cả document
         .skip(page*perPage-perPage) //skip tới document cần hiển thị
         .limit(perPage) //giới hạn số document
@@ -31,7 +31,7 @@ class ProductsController {
     //GET /products
     defaultIndex(req, res) {
         const page=1; //chỉ số trang đầu tiên
-        const perPage=4; //số document tối đa trong 1 trang
+        const perPage=8; //số document tối đa trong 1 trang
         Products.find() //tìm tất cả document
         .skip(page*perPage-perPage) //skip 0 do là trang đầu tiên
         .limit(perPage) //giới hạn số document
@@ -55,8 +55,9 @@ class ProductsController {
         const formData = req.body;
         console.log(formData);
         const products = new Products(formData);
-        products.save();
-        res.redirect('/products');
+        products.save(()=>{
+            res.redirect('/products');
+        });
     }
 
     //[GET] /products/edit/:_id
@@ -86,9 +87,33 @@ class ProductsController {
     delete(req, res) {
         const productId = req.params._id;
         const page = req.params.page;
-        Products.deleteOne({ _id: productId }, (err, products) => {
+
+        //soft delete 
+        Products.delete({ _id: productId }, (err, products) => {
             res.redirect('/products/:page');
         });
+        
+        //Restore
+        /*Products.restore({_id: proudctId},(err, products)=>{
+            res.redirect('/products/:page');
+        }); */
+    }
+
+    //  [GET] products/restore
+    trash(req,res){
+        Products.findDeleted((err,products)=>{
+            products = products.map((products) => products.toObject());
+            res.render('products_restore',{ products });
+        })
+        
+    }
+
+    // [GET] products/restore/:_id
+    restore(req,res) {
+        const productId=req.params._id;
+        Products.restore({_id: productId},(err, products)=>{
+            res.redirect('/products');
+        })
     }
 }
 

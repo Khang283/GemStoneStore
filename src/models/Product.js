@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const MongooseDelete = require('mongoose-delete');
+const mongoose_delete=require('mongoose-delete');
+const { all } = require('../routes/login');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
@@ -13,5 +16,7 @@ const Product = new Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
+
+Product.plugin(mongoose_delete,{overrideMethods: 'all'});
 
 module.exports = mongoose.model('Product', Product);
