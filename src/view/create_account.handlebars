@@ -1,22 +1,51 @@
-<div>
-    <br>
-    <h1 class="text-success d-flex justify-content-center">Tạo tài khoản mới</h1>
-    <br>
-    <form method="post" action="/login/new/create" class="d-flex justify-content-center">
-        <fieldset>
-            <div class="form-group text-center">
-                <label class="form-label">Tên người dùng</label>
-                <input type="text" name="username" id="" class="form-control" placeholder="Enter your username">
-                <br>
-                <label class="form-label">Mật khẩu</label>
-                <input type="password" name="password" id="" class="form-control" placeholder="Enter your password">
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-5 mt-md-4 pb-5">
+              <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
+
+                <div class="form-outline mb-4">
+                <input type="name" id="form3Example3" class="form-control form-control-lg"
+                placeholder="Enter your username" />
             </div>
-            <br>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-info btn-lg">Tạo tài khoản</button>
+
+            <div class="form-outline mb-3">
+                <input type="email" id="form3Example4" class="form-control form-control-lg"
+                placeholder="Enter your email" />
             </div>
-            <br>
-            <a href="/login" class="text-success decoration-none">Bạn đã có tài khoản? Đăng nhập</a>
-        </fieldset>
-    </form>
-</div>
+             <div class="form-outline mb-3">
+                <input type="password" id="form3Example4" class="form-control form-control-lg"
+                placeholder="Enter your password" />
+            </div>
+
+            <div class="form-outline mb-3">
+                <input type="password" id="form3Example4" class="form-control form-control-lg"
+                placeholder="Repeat your password" />
+            </div>
+
+                <div class="form-check d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <label class="form-check-label" for="form2Example3g">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div>
+
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+
+            </div>
+
+              <div>
+                <p class="mb-0">Have already an account? <a href="../login" class="fw-bold text-body">Login here</a>
+                </p>
+              </div>  
+             
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

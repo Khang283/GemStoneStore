@@ -1,24 +1,38 @@
-<div>
-    <br>
-    <h1 class="text-success d-flex justify-content-center">Đăng nhập <i class="bi bi-gem"></i></h1>
-    <br>
-    <form method="post" action="login" class="d-flex justify-content-center">
-        <fieldset>
-            <div class="form-group text-center">
-                <label class="form-label">Tên người dùng</label>
-                <input type="text" name="username" id="" class="form-control" placeholder="Enter your username">
-                <br>
-                <label class="form-label">Mật khẩu</label>
-                <input type="text" name="password" id="" class="form-control" placeholder="Enter your password">
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-5 mt-md-4 pb-5">
+
+              <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+              
+            <div class="form-outline mb-4">
+                <input type="name" id="form3Example3" class="form-control form-control-lg"
+                placeholder="Enter username" />
             </div>
-            <br>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-info btn-lg">Đăng nhập</button>
+
+            <div class="form-outline mb-3">
+                <input type="password" id="form3Example4" class="form-control form-control-lg"
+                placeholder="Enter password" />
             </div>
-            <br>
-            <a href="/login/forgot" class="text-success decoration-none">Quên mật khẩu ?</a>
-            <br>
-            <a href="/login/new" class="text-success decoration-none">Tạo tài khoản mới.</a>
-        </fieldset>
-    </form>
-</div>
+              
+
+              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+
+              <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+
+            </div>
+
+            <div>
+              <p class="mb-0">Don't have an account? <a href="./login/new" class="text-white-50 fw-bold">Sign Up</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
