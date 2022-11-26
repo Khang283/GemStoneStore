@@ -1,4 +1,6 @@
 const Products = require('../models/Product');
+const cookie=require('cookie');
+const jwt=require('jsonwebtoken');
 
 class ProductsController {
     //GET /products/detail
@@ -12,37 +14,93 @@ class ProductsController {
     }
 
     //[GET] /products/:page
-    index(req, res){
-        const page=req.params.page; //chỉ số trang
-        const perPage=8; //số document tối đa trong 1 trang
-        Products.find() //tìm tất cả document
-        .skip(page*perPage-perPage) //skip tới document cần hiển thị
-        .limit(perPage) //giới hạn số document
-        .exec((err,products)=>{
-            products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
-            Products.count({},(err, count)=>{   //đếm số doc
-                const limitPage = Math.ceil(count/perPage); //phân trang
-                res.render('products', { limitPage, products });    //trả về doc và phân trang
-                console.log(products);
-            });
-        })
+    index(req, res) {
+        try {
+            var token = req.session.login;
+            var account = jwt.verify(token.cookie, 'data_login');
+            var role = account.role;
+            if (account) {
+                const page = req.params.page; //chỉ số trang đầu tiên
+                const perPage = 8; //số document tối đa trong 1 trang
+                Products.find() //tìm tất cả document
+                    .skip(page * perPage - perPage) //skip 0 do là trang đầu tiên
+                    .limit(perPage) //giới hạn số document
+                    .exec((err, products) => {
+                        products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
+                        Products.count({}, (err, count) => {   //đếm số doc
+                            const limitPage = Math.ceil(count / perPage); //phân trang
+                            console.log(role);
+                            res.render('products', { limitPage, products, page, account});    //trả về doc và phân trang
+                            //console.log(products);
+                        });
+                    })
+            }
+        }
+        catch (err) {
+            var account={
+                username: "None",
+                role: "USER",
+            };
+            const page = req.params.page; //chỉ số trang đầu tiên
+            const perPage = 8; //số document tối đa trong 1 trang
+            Products.find() //tìm tất cả document
+                .skip(page * perPage - perPage) //skip 0 do là trang đầu tiên
+                .limit(perPage) //giới hạn số document
+                .exec((err, products) => {
+                    products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
+                    Products.count({}, (err, count) => {   //đếm số doc
+                        const limitPage = Math.ceil(count / perPage); //phân trang
+                        console.log(role);
+                        res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
+                        //console.log(products);
+                    });
+                })
+        }
     }
 
     //GET /products
     defaultIndex(req, res) {
-        const page=1; //chỉ số trang đầu tiên
-        const perPage=8; //số document tối đa trong 1 trang
-        Products.find() //tìm tất cả document
-        .skip(page*perPage-perPage) //skip 0 do là trang đầu tiên
-        .limit(perPage) //giới hạn số document
-        .exec((err,products)=>{
-            products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
-            Products.count({},(err, count)=>{   //đếm số doc
-                const limitPage = Math.ceil(count/perPage); //phân trang
-                res.render('products', { limitPage, products });    //trả về doc và phân trang
-                console.log(products);
-            });
-        })
+        try {
+            var token = req.session.login;
+            var account = jwt.verify(token.cookie, 'data_login');
+            var role=account.role;
+            if (account) {
+                const page = 1; //chỉ số trang đầu tiên
+                const perPage = 8; //số document tối đa trong 1 trang
+                Products.find() //tìm tất cả document
+                    .skip(page * perPage - perPage) //skip 0 do là trang đầu tiên
+                    .limit(perPage) //giới hạn số document
+                    .exec((err, products) => {
+                        products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
+                        Products.count({}, (err, count) => {   //đếm số doc
+                            const limitPage = Math.ceil(count / perPage); //phân trang
+                            console.log(account.username);
+                            res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
+                            //console.log(products);
+                        });
+                    })
+            }
+        }
+        catch (err) {
+            var account={
+                username: "None",
+                role: "USER",
+            };
+            const page = req.params.page; //chỉ số trang đầu tiên
+            const perPage = 8; //số document tối đa trong 1 trang
+            Products.find() //tìm tất cả document
+                .skip(page * perPage - perPage) //skip 0 do là trang đầu tiên
+                .limit(perPage) //giới hạn số document
+                .exec((err, products) => {
+                    products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
+                    Products.count({}, (err, count) => {   //đếm số doc
+                        const limitPage = Math.ceil(count / perPage); //phân trang
+                        console.log(account.username);
+                        res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
+                        //console.log(products);
+                    });
+                })
+        }
     }
 
     //[GET] /products/new
@@ -86,11 +144,10 @@ class ProductsController {
     //[DELETE] /products/delete/:_id
     delete(req, res) {
         const productId = req.params._id;
-        const page = req.params.page;
 
         //soft delete 
         Products.delete({ _id: productId }, (err, products) => {
-            res.redirect('/products/:page');
+            res.redirect('/products');
         });
         
         //Restore

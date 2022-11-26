@@ -1,13 +1,15 @@
 <br>
+{{#checkUser account/role}}
 <div class="row">
     <div class="col-10">
-        
+  
     </div>
     <div class="col-2 gap-3 ">
         <a href="/products/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> Thêm</a>
         <a href="/products/restore" class="btn btn-danger"><i class="bi bi-arrow-clockwise"></i> Khôi phục</a>
     </div>
 </div>
+{{/checkUser}}
 <br>
 <div class="container">
     <div class="row">
@@ -15,8 +17,7 @@
         <div class="card col-3 border-light mb-3 " >
             <div class="card-header text-center">
                 <a href="/products/detail/{{this._id}}">
-                    <img class="w-75"
-                        src="{{this.image}}">
+                    <img class="w-75" src="{{this.image}}">
                 </a>
             </div>
             <div class="card-body text-center">
@@ -25,10 +26,12 @@
                 </a>
                 <p class="card-text">{{this.price}} đ</p>
                 <button class="btn btn-outline-success"><i class="bi bi-bag-plus"></i>Thêm vào giỏ hàng</button>
+                {{#checkUser ../account/role}}
                 <div class="d-flex justify-content-center gy-5">
                     <a href="/products/edit/{{this._id}}" class="btn btn-info"><i class="bi bi-pencil-square"></i>Chỉnh sửa</a>
                     <a href="/products/delete/{{this._id}}?_method=DELETE" class="btn btn-danger"><i class="bi bi-x-circle"></i>Xóa</a>
                 </div>
+                {{/checkUser}}
             </div>
         </div>
         {{/each}}
@@ -37,8 +40,8 @@
 
 <div>
   <ul class="pagination d-flex justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#">&laquo;</a>
+    <li class="page-item">
+      <a class="page-link" href="/products/{{previousPage page}}">&laquo;</a>
     </li>
     {{#each (listPagination limitPage)}}
     <li class="page-item">
@@ -46,7 +49,7 @@
     </li>
     {{/each}}
     <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
+      <a class="page-link" href="/products/{{nextPage page limitPage}}">&raquo;</a>
     </li>
   </ul>
 </div>

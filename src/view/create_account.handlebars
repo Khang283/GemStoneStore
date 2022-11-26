@@ -12,6 +12,16 @@
                 <input type="password" name="password" id="" class="form-control" placeholder="Enter your password">
             </div>
             <br>
+            {{#checkUser account/role}}
+            <div class="text-center">
+                <label class="form-label" >Vai trò</label>
+                <select class="form-select" name="role">
+                    <option value="USER">USER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+            <br>
+            {{/checkUser}}
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-info btn-lg">Tạo tài khoản</button>
             </div>

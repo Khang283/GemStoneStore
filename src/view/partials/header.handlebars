@@ -37,7 +37,7 @@
           <li class="nav-item">
             <a class="nav-link active" href="#">Giá cả</a>
           </li>
-         <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" role="button">Tài khoản</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="/login">Đăng nhập</a>
@@ -49,6 +49,17 @@
           <input class="form-control me-sm-2" type="text" placeholder="Tìm kiếm">
           <i class="bi bi-search btn btn-secondary" type="submit"></i>
         </form>
+        {{#isUserExist account._id}}
+        <li class="nav-item dropdown d-flex md">
+          <button class="nav-link active dropdown-toggle bi bi-person-circle" data-bs-toggle="dropdown" role="button"> {{account.username}} </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Hồ sơ</a>
+            <a class="dropdown-item" href="/login/logout">Đăng xuất</a>
+          </div>
+        </li>
+        {{else}}
+        
+        {{/isUserExist}}
       </div>
     </div>
   </nav>
