@@ -1,51 +1,93 @@
-<br>
-<div class="row">
+<div>
+
+
+  <br>
+  <div class="row">
     <div class="col-10">
-        
+
     </div>
     <div class="col-2 gap-3 ">
-        <a href="/products/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> Thêm</a>
+      <a href="/products/new" class="btn btn-success"><i class="bi bi-plus-circle"></i> Thêm</a>
+      <a href="/products/restore" class="btn btn-danger"><i class="bi bi-arrow-clockwise"></i> Khôi phục</a>
     </div>
-</div>
-<br>
-<div class="container">
-    <div class="row">
-        {{#each products}}
-        <div class="card col-3 border-light mb-3 " >
-            <div class="card-header text-center">
-                <a href="/products/detail/{{this._id}}">
-                    <img class="w-75"
-                        src="{{this.image}}">
-                </a>
-            </div>
-            <div class="card-body text-center">
-                <a href="/products/detail/{{this._id}}" class="text-secondary decoration-none" >
-                    <p class="card-text">{{this.name}}</p>
-                </a>
-                <p class="card-text">{{this.price}} đ</p>
-                <button class="btn btn-outline-success"><i class="bi bi-bag-plus"></i>Thêm vào giỏ hàng</button>
-                <div class="d-flex justify-content-center gy-5">
-                    <a href="/products/edit/{{this._id}}" class="btn btn-info"><i class="bi bi-pencil-square"></i>Chỉnh sửa</a>
-                    <a href="/products/delete/{{this._id}}?_method=DELETE" class="btn btn-danger"><i class="bi bi-x-circle"></i>Xóa</a>
-                </div>
-            </div>
-        </div>
-        {{/each}}
-    </div>
-</div>
+  </div>
 
-<div>
-  <ul class="pagination d-flex justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#">&laquo;</a>
-    </li>
-    {{#each (listPagination limitPage)}}
-    <li class="page-item">
-      <a href="/products/{{indexNum @index 1}}" class="page-link active">{{indexNum @index 1}}</a>
-    </li>
-    {{/each}}
-    <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
-    </li>
-  </ul>
+  <br>
+  <div class="container">
+    <div class="row">
+      {{#each products}}
+      <div class="card col-4 border-light">
+        <div class="card-header text-center">
+          <a href="/products/detail/{{this._id}}">
+            <img class="w-75" src="{{this.image}}">
+          </a>
+        </div>
+        <div class="card-body text-center">
+          <a href="/products/detail/{{this._id}}" class="text-secondary decoration-none">
+            <p class="card-text">{{this.name}}</p>
+          </a>
+          <p class="card-text" id="price{{indexNum @index 1}}" value="1">{{this.price}}</p>
+          <button class="btn btn-outline-success"><i class="bi bi-bag-plus"></i>Thêm vào giỏ hàng</button>
+          <div class="d-flex justify-content-center gy-5">
+            <a href="/products/edit/{{this._id}}" class="btn btn-info"><i class="bi bi-pencil-square"></i>Chỉnh sửa</a>
+            <a href="/products/delete/{{this._id}}?_method=DELETE" class="btn btn-danger"><i
+                class="bi bi-x-circle"></i>Xóa</a>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div>
+    <ul class="pagination d-flex justify-content-center">
+      <li class="page-item btn-prev disabled">
+        <a class="page-link" href="/products/{{pagePre}}">&laquo;</a>
+      </li>
+
+      <div class="number-page" id="number-page">
+        {{#each (listPagination limitPage)}}
+        <li class="page-item" value="{{indexNum @index 1}}">
+          <a href="/products/{{indexNum @index 1}}" class="page-link">{{indexNum @index 1}}</a>
+        </li>
+        {{/each}}
+      </div>
+
+      <li class="page-item btn-next disabled">
+        <a class="page-link" href="/products/{{pageNext}}">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    let value = {{ page }};
+    let add = value + 1;
+
+    const idPages = document.querySelectorAll('.number-page li');
+    const btnNext = document.querySelector('.btn-next');
+    const btnPrev = document.querySelector('.btn-prev');
+
+    idPages[value - 1].classList.add('active');
+
+    if (value > 1 && value < idPages.length) {
+      btnPrev.classList.remove('disabled');
+      btnNext.classList.remove('disabled');
+    }
+    if (value == 1) {
+      btnPrev.classList.add('disabled');
+      btnNext.classList.remove('disabled');
+    }
+    if (value == idPages.length) {
+      btnNext.classList.add('disabled');
+      btnPrev.classList.remove('disabled');
+    }
+
+    for (let i = 1; i <= 8; i++) {
+      const price = document.getElementById("price" + i);
+      var price_value = price.textContent;
+      const value_new = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price_value);
+      price.innerHTML = value_new;
+    }
+
+  </script>
 </div>
