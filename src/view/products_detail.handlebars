@@ -1,31 +1,86 @@
-<div class="row d-flex justify-content-center">
-    <div class="col-5 animation_hover">
-        <img src="{{products.image}}" alt="" class="w-50">
+<div class="products-details">
+    <div class="row d-flex justify-content-center">
+        <div class="col-5 animation_hover">
+            <img src="{{products.image}}" alt="" class="w-50">
+        </div>
+        <div class="col-5">
+            <h1>{{products.name}}</h1>
+            <p class="Price">Giá: {{products.price}}</p>
+            <button class="btn btn-outline-success"><i class="bi bi-bag-fill"></i> Thêm vào giỏ hàng</button>
+            <button class="btn btn-outline-danger"><i class="bi bi-bag-fill"></i> Mua ngay</button>
+        </div>
     </div>
-    <div class="col-5">
-        <h1>{{products.name}}</h1>
-        <p>Giá: {{products.price}}</p>
-        <button class="btn btn-outline-success"><i class="bi bi-bag-fill"></i> Thêm vào giỏ hàng</button>
-    </div>
-</div>
 
-<div class="">
-    <h2 class="text-primary">Mô tả sản phẩm</h2>
-    <p class="text-dark">{{products.description}}</p>
-    <div class="accordion" id="accordionExample">
-        <div class="accordion-item w-50">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed text-secondary" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Thông tin chi tiết
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample" style="">
-                <div class="accordion-body">
-                    <p>Loại: {{products.type}}</p>
-                    <p>Giá: {{products.price}} VNĐ</p>
-                    <p>Vật liệu: {{products.material}}</p>
+    <div class="">
+        <h2 class="text-primary">Mô tả sản phẩm</h2>
+        <p class="text-dark">{{products.description}}</p>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item w-50">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Thông tin chi tiết
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample" style="">
+                    <div class="accordion-body">
+                        <p>Loại: {{products.type}}</p>
+                        <p>Giá: {{products.price}} VNĐ</p>
+                        <p>Vật liệu: {{products.material}}</p>
+                        <p>Giới tính: {{products.gender}} </p>
+                        <p>Độ ưa chuộng: {{products.rates}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="Comment-product">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item w-50">
+                <h2 class="accordion-header" id="headingTwo ">
+                    <button class="accordion-button collapsed text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Góp ý của khách hàng
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample" style="">
+                    <div class="accordion-body">
+                        <p>Nhận xét và góp ý:</p>
+                        <p class="ty-no-items">Chưa có bình luận nào</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="usually-meet-qt">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item w-50">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Những câu hỏi khách hàng thường hỏi
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                    data-bs-parent="#accordionExample" style="">
+                    <div class="accordion-body">
+                        <p>1. Chính sách hỗ trợ khách hàng:</p>
+                        <P>Shop có những chính sách hỗ trợ khách hàng thông qua số điện thoại hotline hoặc đặt lịch hẹn
+                            gặp
+                            gỡ trực tiếp để hỗ trợ cho việc tư vấn, hoàn trả và thu mua sản phẩm.</P>
+                        <p>2. Sản phẩm đeo lâu có xỉn màu không, bảo hành như thế nào?</p>
+                        <p>Do tính chất hóa học, sản phẩm có khả năng oxy hóa, xuống màu. Phúc Long Jewelry có chính
+                            sách bảo hành miễn
+                            phí về lỗi kỹ thuật, nước xi:</p>
+                        <p>- Trang sức vàng: 6 tháng.</p>
+                        <p>- Trang sức bạc: 3 tháng.</p>
+                        <p>Ngoài ra, Phúc Long Jewelry cũng cung cấp dịch vụ siêu âm làm sạch bằng máy chuyên dụng (siêu
+                            âm, không xi) miễn phí trọn đời tại hệ thống cửa hàng.</p>
+                    </div>
                 </div>
             </div>
         </div>
