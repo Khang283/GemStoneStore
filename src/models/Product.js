@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const MongooseDelete = require('mongoose-delete');
 const mongoose_delete=require('mongoose-delete');
-const { all } = require('../routes/login');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 

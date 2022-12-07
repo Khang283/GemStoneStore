@@ -2,12 +2,12 @@ const Account = require('../models/Account');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
 const cookiesParser=require('cookie-parser');
+const shared=require('./ShareFunction');
 
 class LoginController {
     logout(req, res){
         try {
-            var token=req.session.login;
-            var ketqua=jwt.verify(token.cookie, 'data_login');
+            var ketqua=shared.verifyToken(req.session);
             if(ketqua){
                 req.session=null;
                 res.redirect('/');
@@ -20,8 +20,7 @@ class LoginController {
 
     private(req,res){
         //parse cookie từ header
-        var token=req.session.login;
-        var ketqua = jwt.verify(token.cookie,'data_login');
+        var ketqua=shared.verifyToken(req.session);
         console.log(ketqua);
         if(ketqua){
             res.redirect('/');
@@ -59,29 +58,34 @@ class LoginController {
     //[POST] create_account
     create(req, res) {
         const formData = req.body;
-        console.log(formData);
+        //console.log(formData);
         const account = new Account(formData);
-        account.save();
-        var token = jwt.sign({
-            //Phải là 1 object
-            _id: account._id,
-            username: account.username,
-            role: account.role,
-        }, 'data_login', { expiresIn: '24h' });
-        //tạo cookie
-        req.session.login = {
-            cookie: token,
-        };
-        res.render('success_account');
+        Account.findOne({ username: account.username }, (err, tk) => {
+            if (tk) {
+                res.status(400).send("Tên tài khoản bị trùng");
+            }
+            else {
+                account.save();
+                var token = jwt.sign({
+                    //Phải là 1 object
+                    _id: account._id,
+                    username: account.username,
+                    role: account.role,
+                }, 'data_login', { expiresIn: '24h' });
+                //tạo cookie
+                req.session.login = {
+                    cookie: token,
+                };
+                res.status(200).send("Tạo tài khoản thành công");
+            }
+        });
     }
 
     //[GET] create_account
     new(req, res) {
         try{
-            var token=req.session.login;
-            var account = jwt.verify(token.cookie,'data_login');
-            var role = account.role;
-            console.log(role);
+            var account=shared.verifyToken(req.session);
+            //console.log(role);
             res.render('create_account', {account});
         }
         catch(err){
@@ -96,7 +100,16 @@ class LoginController {
 
     //[GET] login
     index(req, res) {
-        res.render('login');
+        try{
+            var account=shared.verifyToken(req.session);
+            if(account){
+                res.render('login', {account});
+            }
+        }
+        catch(err){
+            res.render('login');
+        }
+        
     }
 }
 

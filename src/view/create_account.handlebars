@@ -2,14 +2,15 @@
     <br>
     <h1 class="text-success d-flex justify-content-center">Tạo tài khoản mới</h1>
     <br>
-    <form method="post" action="/login/new/create" class="d-flex justify-content-center">
+    <p class="label text-center d-none text-danger" id="checkExist">Tên tài khoản đã tồn tại</p>
+    <form method="post" id="formSignup" class="d-flex justify-content-center">
         <fieldset>
             <div class="form-group text-center">
                 <label class="form-label">Tên người dùng</label>
-                <input type="text" name="username" id="" class="form-control" placeholder="Enter your username">
+                <input type="text" name="username" id="user" value="" class="form-control" placeholder="Enter your username">
                 <br>
                 <label class="form-label">Mật khẩu</label>
-                <input type="password" name="password" id="" class="form-control" placeholder="Enter your password">
+                <input type="password" name="password" id="passwrd" value="" class="form-control" placeholder="Enter your password">
             </div>
             <br>
             {{#checkUser account/role}}
@@ -21,12 +22,34 @@
                 </select>
             </div>
             <br>
+            {{else}}
+            <div class="text-center">
+                <label class="form-label">Liên hệ admin để được cấp quyền admin cho tài khoản</label>
+            </div>
             {{/checkUser}}
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-info btn-lg">Tạo tài khoản</button>
+                <button type="button" onclick="newAccount_request()" class="btn btn-info btn-lg" id="request">Tạo tài khoản</button>
             </div>
             <br>
             <a href="/login" class="text-success decoration-none">Bạn đã có tài khoản? Đăng nhập</a>
         </fieldset>
     </form>
 </div>
+
+<script>
+    let check=document.getElementById("checkExist");
+    function newAccount_request(){
+        $.ajax({
+            url: '/login/new/create',
+            type: 'POST',
+            data: {
+                username: $('#user').val(),
+                password: $('#passwrd').val(),
+            }
+        }).then(data=>{
+            window.location.href='../home';
+        }).catch(err=>{
+            check.classList.remove('d-none');
+        })
+    }
+</script>

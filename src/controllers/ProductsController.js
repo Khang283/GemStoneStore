@@ -1,6 +1,7 @@
 const Products = require('../models/Product');
 const cookie=require('cookie');
 const jwt=require('jsonwebtoken');
+const shared=require('./ShareFunction');
 
 class ProductsController {
     //GET /products/detail
@@ -16,9 +17,7 @@ class ProductsController {
     //[GET] /products/:page
     index(req, res) {
         try {
-            var token = req.session.login;
-            var account = jwt.verify(token.cookie, 'data_login');
-            var role = account.role;
+            var account=shared.verifyToken(req.session);
             if (account) {
                 const page = req.params.page; //chỉ số trang đầu tiên
                 const perPage = 8; //số document tối đa trong 1 trang
@@ -29,7 +28,7 @@ class ProductsController {
                         products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
                         Products.count({}, (err, count) => {   //đếm số doc
                             const limitPage = Math.ceil(count / perPage); //phân trang
-                            console.log(role);
+                            //console.log(role);
                             res.render('products', { limitPage, products, page, account});    //trả về doc và phân trang
                             //console.log(products);
                         });
@@ -50,7 +49,7 @@ class ProductsController {
                     products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
                     Products.count({}, (err, count) => {   //đếm số doc
                         const limitPage = Math.ceil(count / perPage); //phân trang
-                        console.log(role);
+                        //console.log(role);
                         res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
                         //console.log(products);
                     });
@@ -61,9 +60,7 @@ class ProductsController {
     //GET /products
     defaultIndex(req, res) {
         try {
-            var token = req.session.login;
-            var account = jwt.verify(token.cookie, 'data_login');
-            var role=account.role;
+            var account=shared.verifyToken(req.session);
             if (account) {
                 const page = 1; //chỉ số trang đầu tiên
                 const perPage = 8; //số document tối đa trong 1 trang
@@ -74,7 +71,7 @@ class ProductsController {
                         products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
                         Products.count({}, (err, count) => {   //đếm số doc
                             const limitPage = Math.ceil(count / perPage); //phân trang
-                            console.log(account.username);
+                            //console.log(account.username);
                             res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
                             //console.log(products);
                         });
@@ -95,7 +92,7 @@ class ProductsController {
                     products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object
                     Products.count({}, (err, count) => {   //đếm số doc
                         const limitPage = Math.ceil(count / perPage); //phân trang
-                        console.log(account.username);
+                        //console.log(account.username);
                         res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
                         //console.log(products);
                     });
