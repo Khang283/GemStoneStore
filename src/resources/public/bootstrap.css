@@ -36,6 +36,7 @@
   --bs-gray-800: #333;
   --bs-gray-900: #222;
   --bs-primary: #158cba;
+  --bs-web: #FCFBF4;
   --bs-secondary: #f0f0f0;
   --bs-success: #28b62c;
   --bs-info: #75caeb;
@@ -785,7 +786,7 @@ progress {
 .col-4 {
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  width: 33.333333%;
+  width: 33.3333%;
 }
 
 .col-5 {
@@ -7713,6 +7714,12 @@ fieldset:disabled .btn {
 .justify-content-start {
   -ms-flex-pack: start !important;
   justify-content: flex-start !important;
+  display:inline-block;
+  padding: 0 20px;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  text-decoration-style: none;
 }
 
 .justify-content-end {
@@ -8410,7 +8417,7 @@ fieldset:disabled .btn {
 
 .text-light {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) !important;
+  color: rgba(var(--bs-dark), var(--bs-text-opacity)) !important;
 }
 
 .text-dark {
@@ -8471,7 +8478,7 @@ fieldset:disabled .btn {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-web), var(--bs-bg-opacity)) !important;
 }
 
 .bg-secondary {
@@ -11403,7 +11410,8 @@ fieldset:disabled .btn {
 }
 
 .navbar.bg-primary {
-  border-color: #137ea7;
+  border-color: black;
+  border-bottom: 1px solid;
 }
 
 .navbar.bg-secondary {
