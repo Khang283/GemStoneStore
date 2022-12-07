@@ -1,22 +1,33 @@
-<div>
-    <br>
-    <h1 class="text-success d-flex justify-content-center">Tạo tài khoản mới</h1>
-    <br>
-    <form method="post" action="/login/new/create" class="d-flex justify-content-center">
-        <fieldset>
-            <div class="form-group text-center">
-                <label class="form-label">Tên người dùng</label>
-                <input type="text" name="username" id="" class="form-control" placeholder="Enter your username">
-                <br>
-                <label class="form-label">Mật khẩu</label>
-                <input type="password" name="password" id="" class="form-control" placeholder="Enter your password">
+<div class="container py-5 h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+      <div class="card text-dark" style="border-radius: 1rem;">
+        <div class="card-body p-5 text-center">
+          <div class="mb-md-5 mt-md-4 pb-5">
+            <h2 class="fw-bold mb-4 text-uppercase">ĐĂNG KÝ</h2>
+            <div class="form-outline mb-4">
+              <input type="name" class="form-control form-control-lg"
+              placeholder="Tài khoản" />
             </div>
-            <br>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-info btn-lg">Tạo tài khoản</button>
+            <div class="form-outline mb-4">
+              <input type="email" class="form-control form-control-lg"
+              placeholder="Email" />
             </div>
-            <br>
-            <a href="/login" class="text-success decoration-none">Bạn đã có tài khoản? Đăng nhập</a>
-        </fieldset>
-    </form>
+            <div class="form-outline mb-4">
+              <input type="password" class="form-control form-control-lg"
+              placeholder="Mật khẩu" />
+            </div>
+            <div class="form-outline mb-4">
+              <input type="password" class="form-control form-control-lg"
+              placeholder="Nhập lại mật khẩu" />
+            </div>
+            <button class="btn btn-primary btn-lg px-5" type="submit">Đăng ký</button>
+            </div>
+            <div>
+              <p class="mb-0">Bạn đã có tài khoản? <a href="../login" class="fw-bold text-decoration-none text-primary">Đăng nhập</a></p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

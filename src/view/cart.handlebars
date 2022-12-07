@@ -1,0 +1,118 @@
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+
+<div class="container h-100 py-4">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col">
+      <p><span class="h2">Giỏ hàng</span><span class="h4"></span></p>
+      <div class="table-responsive">
+        <table class="table " id ="cart">
+          <thead>
+            <tr>
+              <th scope="col">Sản phẩm</th>
+              <th scope="col">Giá</th>
+              <th scope="col">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSố lượng</th>
+              <th scope="col">Tổng</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row" >
+                <div class="d-flex align-items-center">
+                  <img src="https://phunugioi.com/wp-content/uploads/2020/10/hinh-ve-de-thuong-cute-dang-yeu-don-gian.jpg" class="img-fluid rounded-3" style="width: 120px;" >
+                  <div class="ms-4">
+                    <p class="mb-2" style="font-weight: bold;">day chuyen DJP1392</p>
+                    <p class="mb-0">DJP1392</p>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle">
+                <p class="mt-2 price">100</p>
+              </td>
+              <td class="align-middle">
+                <div class="d-flex flex-row">
+                  <span class="btn btn-link px-2 quantity-minus" onclick="qtminus()"><i class="fa fa-minus"></i></span>
+                  <input min="1" name="quantity" value="1" type="number" class="form-control form-control-sm quantity" style="width: 40px;" />
+                  <span class="btn btn-link px-2 quantity-plus" onclick="qtplus()"><i class="fa fa-plus"></i></span>
+                </div>
+              </td>
+              <td class="align-middle">
+                <p class="mt-2 full-price"></p>
+              </td> 
+              <td class="align-middle">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deletecartitem"><i class="bi-trash3"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="card mb-3">
+        <div class="card-body ">
+          <div class="float-end">
+            <p class="mb-0 me-5 d-flex align-items-center">
+              <p class="small me-2" >Tổng: <span class="lead fw-normal" id="total"></span>&nbspVND</p>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-end">
+        <a href="/home"><button type="button" class="btn btn-light btn-lg me-2">Tiếp tục mua hàng</button></a>
+        <button type="button" class="btn btn-primary btn-lg">Thanh toán</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deletecartitem" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" onclick="DeleteItem()" data-bs-dismiss="modal">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+  var price = document.getElementsByClassName("price");
+  var qt = document.getElementsByClassName("quantity");
+  var fullprice = document.getElementsByClassName("full-price");
+  var total = document.getElementById('total');
+  fullprice[0].innerHTML = parseInt(price[0].textContent) * parseInt(qt[0].value);
+  total.innerHTML = parseInt(fullprice[0].textContent); 
+  function qtminus() {
+    document.querySelector('input[type=number]').stepDown();
+    fullprice[0].innerHTML = parseInt(price[0].textContent) * parseInt(qt[0].value);
+    total.innerHTML = parseInt(fullprice[0].textContent); 
+  }
+
+  function qtplus() {
+    document.querySelector('input[type=number]').stepUp();
+    fullprice[0].innerHTML = parseInt(price[0].textContent) * parseInt(qt[0].value);
+    total.innerHTML = parseInt(fullprice[0].textContent); 
+  }
+
+  function DeleteItem(){
+    document.getElementById("cart").deleteRow(1);
+  }
+</script>
