@@ -83,10 +83,10 @@ class ProductsController {
                 username: "None",
                 role: "USER",
             };
-            const page = req.params.page; //chỉ số trang đầu tiên
+            const page = 1; //chỉ số trang đầu tiên
             const perPage = 8; //số document tối đa trong 1 trang
             Products.find() //tìm tất cả document
-                .skip(page * perPage - perPage) //skip 0 do là trang đầu tiên
+                .skip(0) //skip 0 do là trang đầu tiên
                 .limit(perPage) //giới hạn số document
                 .exec((err, products) => {
                     products = products.map((products) => products.toObject()); //đưa tất cả các doc tìm dc về dạng object

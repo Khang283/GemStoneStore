@@ -22,3 +22,55 @@
   transition: transform 0.2s ease;
   margin-left: 4px;
   margin-right: 4px; }
+
+/* products*/
+
+.card{
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background: linear-gradient(to bottom,#fff 0%,#f7f7f7 100%);
+  width: -webkit-calc((100% - 40px) / 4);
+}
+
+.card-header{
+  background: none;
+  border: 0;
+}
+
+.page-link, .page-item.disabled .page-link{
+  background: none;
+}
+
+.pagination li a {
+  border:  0;
+}
+
+.number-page {
+  display: flex;
+}
+
+.card-body > .card-text {
+  font-size:larger;
+  color:  #c48c46;
+}
+
+/* product detail */
+
+.ty-no-items {
+  padding: 60px 20px;
+    background: #f8f9f9;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.products-details {
+  padding-top: 3%;
+  padding-right: 100px;
+  padding-left: 100px;
+}
+
+.Price {
+  font-size: larger;
+  color: #c48c46;
+}
