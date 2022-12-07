@@ -1,23 +1,30 @@
 <div>
     <br>
-    <h1 class="text-success d-flex justify-content-center">Thêm sản phẩm mới <i class="bi bi-gem"></i></h1>
+    <h1 class="d-flex justify-content-center">Thêm sản phẩm </h1>
     <br>
     <form method="post" action="/products/new/create" class="d-flex justify-content-center">
         <fieldset>
-            <div class="form-group text-center">
-                <label class="form-label">Tên sản phẩm</label>
-                <input type="text" name="name" id="nameTextbox" class="form-control" placeholder="" >
-                <span id="nameResult"></span>
+            <div class="form-group">
+                <label class="form-label-for-addPage"><i class="bi-pencil-square"></i> Tên sản phẩm <sup class="sup-red">(*)</sup></label>
+                <input type="text" name="name" id="nameTextbox" class="form-control-for-textbox" placeholder="Nhập tên sản phẩm" >
+                <span id="nameResult"></span></div>
+                <br>      
+                <div class="form-group">
+                    <label class="form-label-for-addPage"> Cái này để thêm hình nma k biết làm được k nên k làm thì xoá </label>
+                    <input type="file" class="form-control-file"/>
+                </div>
                 <br>
-                <label class="form-label">Hình ảnh (URL)</label>
-                <input type="text" name="image" id="imageTextbox" class="form-control" placeholder="">
-                <span id="imageResult"></span>
+                <div class="form-group">
+                <label class="form-label-for-addPage"><i class="bi-file-image"></i> Hình ảnh (URL) <sup class="sup-red">(*)</sup></label>
+                <input type="text" name="image" id="imageTextbox" class="form-control-for-textbox" placeholder="Nhập URL của hình ảnh">
+                <span id="imageResult"></span></div>
                 <br>
-                <label class="form-label">Giá (VNĐ)</label>
-                <input type="text" name="price" id="priceTextbox" class="form-control" placeholder="">
-                <span id="priceSpan"></span>
+                <div class="form-group">
+                <label class="form-label-for-addPage"><i class="bi-currency-dollar"></i>Giá (VNĐ) <sup class="sup-red">(*)</sup></label>
+                <input type="text" name="price" id="priceTextbox" class="form-control-for-textbox" placeholder="Nhập giá sản phẩm">
+                <span id="priceSpan"></span></div>
                 <br>
-                <label class="form-label">Loại trang sức</label>
+                <label class="form-label">Loại trang sức <sup class="sup-red">(*)</sup></label>
                 <select name="type" id="">
                     <option value="ring">Nhẫn</option>
                     <option value="bracelet">Vòng tay</option>
@@ -26,7 +33,8 @@
                     <option value="necklace">Dây chuyền</option>
                 </select>
                 <br>
-                <label class="form-label">Loại vật liệu</label>
+                <br>
+                <label class="form-label">Loại vật liệu <sup class="sup-red">(*)</sup></label>
                 <select name="material" id="">
                     <option value="Gold">Vàng</option>
                     <option value="Plantium">Bạch kim</option>
@@ -34,10 +42,11 @@
                     <option value="Silver">Bạc</option>
                 </select>
                 <br>
-                <label class="form-label">Mô tả sản phẩm</label>
-                <textarea class="form-control" name="description" id="" rows="3"></textarea>
+                <br>
+                <label class="form-label">Mô tả sản phẩm <sup class="sup-red">(*)</sup></label>
+                <textarea placeholder="Chi tiết sản phẩm" class="form-control" name="description" id="" rows="3"></textarea>
             </div>
-            <br>
+            <br>    
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-info btn-lg disabled" id="btnSubmit">Thêm</button>
             </div>

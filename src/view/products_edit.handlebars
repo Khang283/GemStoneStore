@@ -1,23 +1,28 @@
 <div>
     <br>
-    <h1 class="text-success d-flex justify-content-center">Cập nhật sản phẩm <i class="bi bi-gem"></i></h1>
+    <h1 class="d-flex justify-content-center">Cập nhật sản phẩm</h1>
     <br>
     <form method="POST" action="/products/update/{{products._id}}?_method=PUT" class="d-flex justify-content-center">
         <fieldset>
-            <div class="form-group text-center">
-                <label class="form-label">Tên sản phẩm</label>
-                <input type="text" name="name" id="nameTextbox" class="form-control" value="{{products.name}}" >
+            <div class="form-group">
+                <label class="form-label-for-addPage"><i class="bi-pencil-square"></i> Tên sản phẩm <sup class="sup-red">(*)</sup></label>
+                <input type="text" name="name" id="nameTextbox" class="form-control-for-textbox" value="{{products.name}}" >
                 <span id="nameResult"></span>
                 <br>
-                <label class="form-label">Hình ảnh (URL)</label>
-                <input type="text" name="image" id="imageTextbox" class="form-control" value="{{products.image}}">
+                <label class="form-label-for-addPage"><i class="bi-file-image"></i> Hình ảnh (URL) <sup class="sup-red">(*)</sup></label>
+                <input type="text" name="image" id="imageTextbox" class="form-control-for-textbox" value="{{products.image}}">
                 <span id="imageResult"></span>
                 <br>
-                <label class="form-label">Giá (VNĐ)</label>
-                <input type="text" inputmode="numeric" name="price" id="priceTextbox" class="form-control" value="{{products.price}}">
+                <div class="form-group">
+                    <label class="form-label-for-addPage"> Cái này để thêm hình nma k biết làm được k nên k làm thì xoá </label>
+                    <input type="file" class="form-control-file"/>
+                </div>
+                <br>
+                <label class="form-label-for-addPage"><i class="bi-currency-dollar"></i> Giá (VNĐ) <sup class="sup-red">(*)</sup></label>
+                <input type="text" inputmode="numeric" name="price" id="priceTextbox" class="form-control-for-textbox" value="{{products.price}}">
                 <span id="priceSpan"></span>
                 <br>
-                <label class="form-label">Loại trang sức</label>
+                <label class="form-label">Loại trang sức <sup class="sup-red">(*)</sup></label>
                 <select name="type" id="" >
                     <option value="ring">Nhẫn</option>
                     <option value="bracelet">Vòng tay</option>
@@ -26,7 +31,8 @@
                     <option value="necklace">Dây chuyền</option>
                 </select>
                 <br>
-                <label class="form-label">Loại vật liệu</label>
+                <br>
+                <label class="form-label">Loại vật liệu <sup class="sup-red">(*)</sup></label>
                 <select name="material" id="">
                     <option value="Gold">Vàng</option>
                     <option value="Plantium">Bạch kim</option>
@@ -34,8 +40,9 @@
                     <option value="Silver">Bạc</option>
                 </select>
                 <br>
-                <label class="form-label">Mô tả sản phẩm</label>
-                <textarea class="form-control" name="description" id="" rows="3" 
+                <br>
+                <label class="form-label">Mô tả sản phẩm <sup class="sup-red">(*)</sup></label>
+                <textarea class="form-control-for-textbox" name="description" id="" rows="3" 
                 placeholder="{{products.description}}"></textarea>
             </div>
             <br>
