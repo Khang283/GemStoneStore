@@ -25,14 +25,14 @@
 
 /* products*/
 
-.card{
+.card-products{
   margin-right: 10px;
   margin-bottom: 10px;
   background: linear-gradient(to bottom,#fff 0%,#f7f7f7 100%);
   width: -webkit-calc((100% - 40px) / 4);
 }
 
-.card-header{
+.card-header-products{
   background: none;
   border: 0;
 }
@@ -41,7 +41,7 @@
   background: none;
 }
 
-.pagination li a {
+.pagination-products li a {
   border:  0;
 }
 
@@ -49,7 +49,7 @@
   display: flex;
 }
 
-.card-body > .card-text {
+.card-body > .price-color {
   font-size:larger;
   color:  #c48c46;
 }
