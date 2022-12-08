@@ -1,3 +1,4 @@
+
 <div class="bg-primary">
   <div class="container-fluid">
     <div class="row">
@@ -5,11 +6,12 @@
         <i class="bi bi-shop"> Cửa hàng</i>
       </div>
       <div class="col-4 d-flex justify-content-center">
-        <a class="navbar-brand text-light" href="#"><i class="bi bi-gem"></i>GemStoneStore </a>
+        <a class="navbar-brand text-light" href="#"><i class="bi bi-gem"></i>PLJ </a>
       </div>
       <div class="col-4 d-flex justify-content-end text-light">
-        <button class="btn btn-primary" type="button" onclick="getCart()"><i class="bi bi-cart"> Đơn hàng</i></button>
+        <a class="nav-link active text-light" href ="#" ><i class="fa fa-cart-plus"></i>Đơn hàng</a>
       </div>
+      <hr>
     </div>
   </div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -22,12 +24,12 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="/">Trang chủ
+            <a class="nav-link active text-light" href="/"><i class="bi bi-house-fill"></i>Trang chủ
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" role="button">Danh sách</a>
+            <a class="nav-link active dropdown-toggle text-light" data-bs-toggle="dropdown" role="button"><i class="bi bi-list"></i>Danh sách</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="/products">Sản phẩm</a>
               <a class="dropdown-item" href="/services">Dịch vụ</a>
@@ -35,13 +37,13 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Giá cả</a>
+            <a class="nav-link active text-light" href="#"><i class="bi bi-currency-dollar"></i>Giá cả</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" role="button">Tài khoản</a>
+         <li class="nav-item dropdown">
+            <a class="nav-link active dropdown-toggle text-light" data-bs-toggle="dropdown" role="button"><i class="bi bi-person-circle"></i>Tài khoản</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="/login">Đăng nhập</a>
-              <a class="dropdown-item" href="/login/new">Tạo tài khoản</a>
+              <a class="dropdown-item" href="/login"><i class="bi-box-arrow-in-right"></i>Đăng nhập</a>
+              <a class="dropdown-item" href="/login/new"><i class="bi-person-plus"></i>Tạo tài khoản</a>
             </div>
           </li>
         </ul>
@@ -49,19 +51,7 @@
           <input class="form-control me-sm-2" type="text" placeholder="Tìm kiếm">
           <i class="bi bi-search btn btn-secondary" type="submit"></i>
         </form>
-        {{#isUserExist account._id}}
-        <li class="nav-item dropdown d-flex md">
-          <button class="nav-link active dropdown-toggle bi bi-person-circle" data-bs-toggle="dropdown" role="button"> {{account.username}} </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Hồ sơ</a>
-            <a class="dropdown-item" href="/login/logout">Đăng xuất</a>
-          </div>
-        </li>
-        {{else}}
-        <li class="nav-item dropdown d-flex md">
-          <button class="nav-link active dropdown-toggle bi bi-person-circle" data-bs-toggle="dropdown" role="button"> Guest </button>
-        </li>
-        {{/isUserExist}}
+        <hr>
       </div>
     </div>
   </nav>
