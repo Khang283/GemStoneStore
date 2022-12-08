@@ -8,7 +8,7 @@
         <a class="navbar-brand text-light" href="#"><i class="bi bi-gem"></i>GemStoneStore </a>
       </div>
       <div class="col-4 d-flex justify-content-end text-light">
-        <i class="bi bi-cart"> Đơn hàng</i>
+        <button class="btn btn-primary" type="button" onclick="getCart()"><i class="bi bi-cart"> Đơn hàng</i></button>
       </div>
     </div>
   </div>
@@ -66,3 +66,19 @@
     </div>
   </nav>
 </div>
+
+<script>
+  function getCart(){
+    $.ajax({
+      url: '/cart',
+      type: 'GET',
+      statusCode: {
+        404: function(){
+          alert("Không tìm thấy giỏ hàng");
+        }
+      },
+    }).then(data=>{
+      window.location.href='../cart';
+    });
+  }
+</script>

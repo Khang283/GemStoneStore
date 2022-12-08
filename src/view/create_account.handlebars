@@ -1,22 +1,30 @@
-<div>
-    <br>
-    <h1 class="text-success d-flex justify-content-center">Tạo tài khoản mới</h1>
-    <br>
-    <p class="label text-center d-none text-danger" id="checkExist">Tên tài khoản đã tồn tại</p>
-    <form method="post" id="formSignup" class="d-flex justify-content-center">
-        <fieldset>
-            <div class="form-group text-center">
-                <label class="form-label">Tên người dùng</label>
-                <input type="text" name="username" id="user" value="" class="form-control" placeholder="Enter your username">
-                <br>
-                <label class="form-label">Mật khẩu</label>
-                <input type="password" name="password" id="passwrd" value="" class="form-control" placeholder="Enter your password">
+<div class="container py-5 h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+      <div class="card text-dark" style="border-radius: 1rem;">
+        <div class="card-body p-5 text-center">
+          <div class="mb-md-5 mt-md-4 pb-5">
+            <h2 class="fw-bold mb-4 text-uppercase">ĐĂNG KÝ</h2>
+            <div class="form-outline mb-4">
+              <input type="name" name="username" class="form-control form-control-lg" id="user"
+              placeholder="Tài khoản" />
             </div>
-            <br>
+            <div class="form-outline mb-4">
+              <input type="email" class="form-control form-control-lg"
+              placeholder="Email" />
+            </div>
+            <div class="form-outline mb-4">
+              <input type="password" id="passwrd" class="form-control form-control-lg"
+              placeholder="Mật khẩu" />
+            </div>
+            <div class="form-outline mb-4">
+              <input type="password" class="form-control form-control-lg"
+              placeholder="Nhập lại mật khẩu" />
+            </div>
             {{#checkUser account/role}}
             <div class="text-center">
-                <label class="form-label" >Vai trò</label>
-                <select class="form-select" name="role">
+                <label class="form-label display-6" >Vai trò</label>
+                <select class="form-select" name="role" id="roleSelect">
                     <option value="USER">USER</option>
                     <option value="ADMIN">ADMIN</option>
                 </select>
@@ -27,13 +35,15 @@
                 <label class="form-label">Liên hệ admin để được cấp quyền admin cho tài khoản</label>
             </div>
             {{/checkUser}}
-            <div class="d-grid gap-2">
-                <button type="button" onclick="newAccount_request()" class="btn btn-info btn-lg" id="request">Tạo tài khoản</button>
+            <button class="btn btn-primary btn-lg px-5" type="submit" onclick="newAccount_request()">Đăng ký</button>
             </div>
-            <br>
-            <a href="/login" class="text-success decoration-none">Bạn đã có tài khoản? Đăng nhập</a>
-        </fieldset>
-    </form>
+            <div>
+              <p class="mb-0">Bạn đã có tài khoản? <a href="../login" class="fw-bold text-decoration-none text-primary">Đăng nhập</a></p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -45,6 +55,7 @@
             data: {
                 username: $('#user').val(),
                 password: $('#passwrd').val(),
+                role: $('#roleSelect').find(':selected').val() || "USER",
             }
         }).then(data=>{
             window.location.href='../home';

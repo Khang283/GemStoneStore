@@ -17,7 +17,7 @@ const ProductSchema = new Schema({
 const Cart=new Schema({
     cartID : {type: ObjectId},
     userID: {type: String, require: true, },
-    items: [{item: ProductSchema, quantity: Number,}],
+    items: [{item: ProductSchema, quantity: Number, price: Number}],
     totalPrice: {type: Number},
     totalQuantity: {type: Number},
 },

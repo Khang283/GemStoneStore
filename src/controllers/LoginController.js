@@ -58,7 +58,7 @@ class LoginController {
     //[POST] create_account
     create(req, res) {
         const formData = req.body;
-        //console.log(formData);
+        console.log(formData);
         const account = new Account(formData);
         Account.findOne({ username: account.username }, (err, tk) => {
             if (tk) {
