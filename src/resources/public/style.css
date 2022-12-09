@@ -1,8 +1,6 @@
-<<<<<<< Updated upstream
-=======
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
->>>>>>> Stashed changes
 .card:hover {
   transform: scale(1.1);
 }
@@ -32,9 +30,6 @@
 .animation_hover {
   transition: transform 0.2s ease;
   margin-left: 4px;
-<<<<<<< Updated upstream
-  margin-right: 4px; }
-=======
   margin-right: 4px;
 }
 
@@ -454,4 +449,3 @@ footer {
 .slite_magin {
   margin: none;
 }
->>>>>>> Stashed changes
