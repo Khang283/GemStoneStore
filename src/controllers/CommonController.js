@@ -1,5 +1,6 @@
 const shared=require('./ShareFunction');
 const cookies_session=require('cookie-session');
+const Product =require('../models/Product');
 
 class CommonController {
     //[GET]
@@ -7,7 +8,12 @@ class CommonController {
        try{
             var account=shared.verifyToken(req.session);
             if(account){
-                res.render('home',{account});
+                let random=Math.random();
+                console.log(random);
+                Product.find().skip(random).limit(4).lean().exec((err, product)=>{
+                    //product=product.map((p)=>p.toObject());   //cant use this if use lean()
+                    res.render('home', {account, product});
+                });
             }
        }
        catch(err){
@@ -15,7 +21,12 @@ class CommonController {
                 username: "None",
                 role: "USER",
             };
-            res.render('home');
+            let random=Math.ceil(Math.random()*10);
+                console.log(random);
+                Product.find().skip(random).limit(6).lean().exec((err, product)=>{
+                    //product=product.map((p)=>p.toObject()); 
+                    res.render('home', {product});
+                });
        }
     }
 }

@@ -22,14 +22,14 @@ class CartController{
                          return res.render('cart', {cart,sp, account});
                     }
                     else{
-                        return res.status(404).send("Không tìm thấy giỏ hàng")
+                        return res.redirect('/login');
                     }
                     
                 }).lean();
             }
         }
         catch{
-            return res.status(404).send("Bạn chưa đăng nhập");
+            return res.redirect('/login');
         }
     }
 
