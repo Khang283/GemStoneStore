@@ -7,11 +7,24 @@ class ProductsController {
     //GET /products/detail
     detail(req, res) {
         const id = req.params._id;
-        Products.findById(id, function (err, products) {
-            products = products.toObject();
-            res.render('products_detail', { products });
-            //res.json(products);
-        });
+        try{
+            const account =shared.verifyToken(req.session);
+            if(account){
+                Products.findById(id, function (err, products) {
+                    products = products.toObject();
+                    res.render('products_detail', { products, account });
+                    //res.json(products);
+                });
+            }
+        }
+        catch{
+            Products.findById(id, function (err, products) {
+                products = products.toObject();
+                res.render('products_detail', { products });
+                //res.json(products);
+            });
+        }
+        
     }
 
     //[GET] /products/:page
@@ -36,10 +49,6 @@ class ProductsController {
             }
         }
         catch (err) {
-            var account={
-                username: "None",
-                role: "USER",
-            };
             const page = req.params.page; //chỉ số trang đầu tiên
             const perPage = 8; //số document tối đa trong 1 trang
             Products.find() //tìm tất cả document
@@ -50,7 +59,7 @@ class ProductsController {
                     Products.count({}, (err, count) => {   //đếm số doc
                         const limitPage = Math.ceil(count / perPage); //phân trang
                         //console.log(role);
-                        res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
+                        res.render('products', { limitPage, products, page });    //trả về doc và phân trang
                         //console.log(products);
                     });
                 })
@@ -79,10 +88,6 @@ class ProductsController {
             }
         }
         catch (err) {
-            var account={
-                username: "None",
-                role: "USER",
-            };
             const page = 1; //chỉ số trang đầu tiên
             const perPage = 8; //số document tối đa trong 1 trang
             Products.find() //tìm tất cả document
@@ -93,7 +98,7 @@ class ProductsController {
                     Products.count({}, (err, count) => {   //đếm số doc
                         const limitPage = Math.ceil(count / perPage); //phân trang
                         //console.log(account.username);
-                        res.render('products', { limitPage, products, page, account });    //trả về doc và phân trang
+                        res.render('products', { limitPage, products, page });    //trả về doc và phân trang
                         //console.log(products);
                     });
                 })

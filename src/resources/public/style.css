@@ -29,6 +29,18 @@
 	border-left: none;
 	border-right: none;
 }
+
+/* button size */
+.btn_resize
+{
+  width: 250px;
+}
+
+/* background footer */
+.bg_footer{
+	background-color: #FCFBF4;
+	margin-top: none;
+}
   
 
 /* products*/
@@ -119,11 +131,11 @@
 }
 /*Footer*/
 footer{
-	position:relative;
-	bottom: 0;
+	position:absolute;
+	
 }
 .footer-distributed{
-  	font-family: "Montserrat", sans-serif;
+  	/*font-family: "Montserrat", sans-serif; */
 	background-color: #FCFBF4;
 	box-sizing: border-box;
 	width: 100%;
@@ -146,7 +158,7 @@ footer{
  
 .footer-distributed h3{
 	color:  black;
-	font: normal 36px 'Cookie', cursive;
+	font: normal 36px ;
 	margin: 0;
 }
  

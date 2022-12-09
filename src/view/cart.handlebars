@@ -35,7 +35,7 @@ input[type=number] {
                   <img src="{{this.item.image}}" class="img-fluid rounded-3" style="width: 120px;" >
                   <div class="ms-4">
                     <p class="mb-2" style="font-weight: bold;">{{this.item.name}}</p>
-                    <p class="mb-0">{{this.item.name}}</p>
+                    <p class="mb-0">Mã sản phẩm: #{{this.item._id}}</p>
                   </div>
                 </div>
               </td>
@@ -44,13 +44,13 @@ input[type=number] {
               </td>
               <td class="align-middle">
                 <div class="d-flex flex-row">
-                  <span class="btn btn-primary px-2 quantity-minus" onclick="qtminus()"><i class="bi bi-plus"></i></span>
-                  <input min="1" name="quantity" value="{{this.quantity}}" type="number" class="form-control form-control-sm quantity" style="width: 40px;" />
-                  <span class="btn btn-primary px-2 quantity-plus" onclick="qtplus()"><i class="bi bi-dash"></i></span>
+                  <span class="btn btn-primary px-2 quantity_minus" id="btn_minus{{indexNum @index 1}}"><i class="bi bi-dash"></i></span>
+                  <input min="1" name="quantity" disabled id="quantity{{indexNum @index 1}}" data-id="{{this.item._id}}" data-number="{{indexNum @index 1}}" value="{{this.quantity}}" type="number" class="form-control form-control-sm quantity" style="width: 40px;" />
+                  <span class="btn btn-primary px-2 quantity_plus" id="btn_plus{{indexNum @index 1}}"><i class="bi bi-plus"></i></span>
                 </div>
               </td>
               <td class="align-middle">
-                <p class="mt-2 full-price">{{this.price}} VNĐ</p>
+                <p class="mt-2 full-price" id="product{{indexNum @index 1}}">{{this.price}} VNĐ</p>
               </td> 
               <td class="align-middle">
                 <a class="btn btn-primary btn_ConfirmDelete" data-id="{{this.item._id}}"
@@ -62,19 +62,21 @@ input[type=number] {
           </tbody>
         </table>
       </div>
-      
+      {{#isEmptyCart cart.totalPrice}}
+      <p class="display-5">Bạn chưa có sản phẩm nào!</p>
+      {{else}}
       <div class="card mb-3">
         <div class="card-body ">
           <div class="float-end">
             <p class="mb-0 me-5 d-flex align-items-center">
-              <p class="display-6 me-2" >Tổng: <span class="lead fw-normal" id="total"></span>{{cart.totalPrice}} VNĐ</p>
+              <p class="display-6 me-2" id="totalPrice">Tổng: <span class="lead fw-normal" id="total"></span>{{cart.totalPrice}} VNĐ</p>
             </p>
           </div>
         </div>
       </div>
-      
+      {{/isEmptyCart}}
       <div class="d-flex justify-content-end">
-        <a href="/home"><button type="button" class="btn btn-light btn-lg me-2">Tiếp tục mua hàng</button></a>
+        <a href="/products"><button type="button" class="btn btn-light btn-lg me-2">Tiếp tục mua hàng</button></a>
         <button type="button" class="btn btn-primary btn-lg">Thanh toán</button>
       </div>
     </div>
@@ -103,6 +105,7 @@ input[type=number] {
   for(let i=1;i<=totalItem;i++){
     $("#delete"+i).on("click",()=>{
       id = $('#delete'+i).data('id');
+      $('#btn_Yes').val(id);
       console.log(id);
       });
   }
@@ -120,5 +123,43 @@ input[type=number] {
        window.location.href="../cart";
       });
   }
+  for(let i=1;i<=totalItem;i++){
+    $('#btn_plus'+i).on('click',()=>{
+      let newValue = $('#quantity'+i).val();
+      let id=$('#quantity'+i).data('id');
+      let num=$('#quantity'+i).data('number');
+      let total=document.getElementById('totalPrice');
+      let product = document.getElementById('product'+num);
+      $('#quantity'+i).val(parseInt(newValue)+1);
+      $.ajax({
+        url: '/cart/inc/' + id,
+        type: 'PUT',
+      }).then(data=>{
+        total.innerHTML="Tổng: " + data.total + " VNĐ";
+        product.innerHTML=parseInt(product.innerHTML) + data.price + " VNĐ";
+      });
+    });
+    $('#btn_minus'+i).on('click',()=>{
+      let newValue = $('#quantity'+i).val();
+      if(newValue==1){
+        return true;
+      }
+      else{
+        let id=$('#quantity'+i).data('id');
+        let num=$('#quantity'+i).data('number');
+        let total=document.getElementById('totalPrice');
+        let product = document.getElementById('product'+num);
+        $('#quantity'+i).val(parseInt(newValue)-1);
+        $.ajax({
+          url: '/cart/reduce/' + id,
+          type: 'PUT',
+        }).then(data=>{
+          total.innerHTML="Tổng: " + data.total + " VNĐ";
+          product.innerHTML=(parseInt(product.innerHTML) - data.price) + " VNĐ";
+        });
+      }
+    });
+  }
+  
 </script>
 

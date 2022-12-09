@@ -98,12 +98,12 @@
     }
 
     let total = document.getElementsByClassName('btn_addCart').length;
-    console.log(total);
+    //console.log(total);
     for (let i = 1; i <= total; i++) {
       let price = document.getElementById('price'+i);
       //console.log(price);
       let price_value = price.dataset.value;
-      console.log(price_value);
+      //console.log(price_value);
       let value_new = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price_value);
       price.innerHTML = value_new;
     } 

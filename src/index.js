@@ -76,6 +76,14 @@ app.engine('handlebars', engine({
             else{
                 return options.inverse(this);
             }
+        },
+        isEmptyCart(a, options){
+            if(a==0){
+                return options.fn(this);
+            }
+            else{
+                return options.inverse(this);
+            }
         }
     }}
 ));

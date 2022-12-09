@@ -8,6 +8,7 @@ const Account = new Schema(
         username: { type: String, required: true, unique: true, max: 50 },
         password: { type: String, required: true, max: 50 },
         role: {type: String, default: "USER"},
+        email: {type: String, default: "none@gmail.com"},
     },
     {
         timestamps: true,

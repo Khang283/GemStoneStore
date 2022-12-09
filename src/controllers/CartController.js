@@ -18,7 +18,7 @@ class CartController{
                         cart.items.forEach(element => {
                             sp.push(element);
                         });
-                        console.log(sp);
+                        //console.log(sp);
                          return res.render('cart', {cart,sp, account});
                     }
                     else{
@@ -128,42 +128,50 @@ class CartController{
         try{
             const account=shared.verifyToken(req.session);
             const productID=req.params._id
+            console.log(productID);
             if(account){
                 Cart.findOne({userID: account._id},(err, cart)=>{
                     if(cart){
                         //console.log(cart.id);
                         //console.log(cart.items);
                         let cartID= cart.id;
-                        var itemId, itemQuantity;
+                        var itemId, itemQuantity, itemDelete;
+                        let itemArray = new Array();
+                        itemArray=cart.items;
+                        //console.log(itemArray);
                         //Tìm id của item trong mảng
-                        cart.items.every(sp => {
-                            if(sp.item.id===productID){
+                        itemArray.forEach(sp => {
+                            if(sp.item.id==productID){
                                 itemId=sp.id;
+                                itemDelete=sp;
                                 itemQuantity=sp.quantity;
-                                return false;
                             }
                         });
+                        console.log(itemId);
+                        //console.log(itemDelete);
                         Product.findById(productID,(err, product)=>{
                             if(product){
                                 let price=parseInt(cart.totalPrice)-(product.price*itemQuantity);
                                 let quantity=parseInt(cart.totalQuantity)-itemQuantity;
-                                //console.log(itemId);
+                                //console.log(product.price);
+                                //console.log(itemQuantity);
                                 Cart.findOneAndUpdate(
                                     {_id: cartID, items: {$elemMatch: {item: product}}},
                                     {$pull: {items: {_id: itemId}},
-                                    $set: {totalPrice: price, totalQuantity: quantity}},
-                                    {upsert: true, safe: true, multi: true},
+                                     $set: {totalPrice: price, totalQuantity: quantity}},
+                                    {upsert: true, new: true},
                                     (err, gioHang)=>{
                                         if(err){
-                                            return res.status(404).send("Đã xảy ra lỗi khi tìm sản phẩm trong giỏ hàng");
+                                            return res.status(403).send(err);
                                         }
                                         else if(gioHang){
                                             return res.status(200).redirect("/cart");
                                         }
                                         else{
                                             return res.status(404).send("Không tìm thấy sản phẩm");
-                                        }
-                                    })
+                                        } 
+                                    });
+                                    
                             }
                             else{
                                 return res.status(404).send("Không tìm thấy sản phẩm")
@@ -182,7 +190,73 @@ class CartController{
         }
     }
 
-    
+    //[PUT] /cart/inc/:_id
+    incItem(req, res){
+        try{
+            const account = shared.verifyToken(req.session);
+            if(account){
+                const itemId= req.params._id;
+                Product.findById(itemId,(err, product)=>{
+                    if(product){
+                        let productPrice = parseInt(product.price);
+                        Cart.findOneAndUpdate({userID: account._id, items: {$elemMatch: {item: product}}},
+                            {$inc: { 'items.$.quantity': 1, 'items.$.price': productPrice, totalPrice: productPrice, totalQuantity: 1 }}
+                            ,{new: true}
+                            ,(err, cart)=>{
+                            if(cart){
+                                res.status(200).send({
+                                    total: cart.totalPrice,
+                                    price: productPrice,
+                                });
+                            }
+                            else{
+                                res.status(400).send("Đã xảy ra lỗi");
+                            }
+                        })
+                    }
+                    else{
+                        res.status(404).send("Không tìm thấy sản phẩm");
+                    }
+                })
+            }
+        }catch{
+            res.status(400).send("Không tìm thấy tài khoản");
+        }
+    }
+
+    //[PUT] /cart/reduce/:_id
+    reduceItem(req, res){
+        try{
+            const account = shared.verifyToken(req.session);
+            if(account){
+                const itemId= req.params._id;
+                Product.findById(itemId,(err, product)=>{
+                    if(product){
+                        let productPrice = parseInt(product.price);
+                        Cart.findOneAndUpdate({userID: account._id, items: {$elemMatch: {item: product}}},
+                            {$inc: { 'items.$.quantity': -1, 'items.$.price': -productPrice, totalPrice: -productPrice, totalQuantity: -1 }}
+                            ,{new: true}
+                            ,(err, cart)=>{
+                            if(cart){
+                                res.status(200).send({
+                                    total: cart.totalPrice,
+                                    price: productPrice,
+                                });
+                            }
+                            else{
+                                res.status(400).send("Đã xảy ra lỗi");
+                            }
+                        })
+                    }
+                    else{
+                        res.status(404).send("Không tìm thấy sản phẩm");
+                    }
+                })
+            }
+        }catch{
+            res.status(400).send("Không tìm thấy tài khoản");
+        }
+    }
 }
 
 
