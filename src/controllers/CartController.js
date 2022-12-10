@@ -13,16 +13,22 @@ class CartController{
             if(account){
                 Cart.findOne({userID: account._id},(err,cart)=>{
                     //console.log(cart.items);
-                    let sp=new Array();
-                    if(cart.items!==null){
+                    if(cart){
+                        let sp=new Array();
+                        if(cart.items!==null){
                         cart.items.forEach(element => {
                             sp.push(element);
                         });
                         //console.log(sp);
                          return res.render('cart', {cart,sp, account});
+                        }
+                        else{
+                            return res.render('cart',{account,cart});
+                        }
                     }
                     else{
-                        return res.redirect('/login');
+                        
+                        return res.render('cart',{account})
                     }
                     
                 }).lean();
