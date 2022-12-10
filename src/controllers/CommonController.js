@@ -9,7 +9,7 @@ class CommonController {
             var account=shared.verifyToken(req.session);
             if(account){
                 let random=Math.random();
-                Product.find().skip(random).limit(6).lean().exec((err, product)=>{
+                Product.find().skip(random).limit(8).lean().exec((err, product)=>{
                     //product=product.map((p)=>p.toObject());   //cant use this if use lean()
                     res.render('home', {account, product});
                 });
@@ -21,7 +21,7 @@ class CommonController {
                 role: "USER",
             };
             let random=Math.ceil(Math.random()*10);
-                Product.find().skip(random).limit(6).lean().exec((err, product)=>{
+                Product.find().skip(random).limit(8).lean().exec((err, product)=>{
                     //product=product.map((p)=>p.toObject()); 
                     res.render('home', {product});
                 });
