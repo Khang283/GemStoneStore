@@ -40,7 +40,7 @@ input[type=number] {
                 </div>
               </td>
               <td class="align-middle">
-                <p class="mt-2 price">{{this.item.price}} VNĐ</p>
+                <p class="mt-2 price" id="productPrice{{indexNum @index 1}}" data-value="{{this.item.price}}">{{this.item.price}} VNĐ</p>
               </td>
               <td class="align-middle">
                 <div class="d-flex flex-row">
@@ -50,7 +50,7 @@ input[type=number] {
                 </div>
               </td>
               <td class="align-middle">
-                <p class="mt-2 full-price" id="product{{indexNum @index 1}}">{{this.price}} VNĐ</p>
+                <p class="mt-2 full-price" id="product{{indexNum @index 1}}" data-value="{{this.price}}">{{this.price}} VNĐ</p>
               </td> 
               <td class="align-middle">
                 <a class="btn btn-primary btn_ConfirmDelete" data-id="{{this.item._id}}"
@@ -69,7 +69,7 @@ input[type=number] {
         <div class="card-body ">
           <div class="float-end">
             <p class="mb-0 me-5 d-flex align-items-center">
-              <p class="display-6 me-2" id="totalPrice">Tổng: <span class="lead fw-normal" id="total"></span>{{cart.totalPrice}} VNĐ</p>
+              <p class="display-6 me-2" id="totalPrice" data-value="{{cart.totalPrice}}">Tổng: <span class="lead fw-normal" id="total"></span>{{cart.totalPrice}} VNĐ</p>
             </p>
           </div>
         </div>
@@ -102,6 +102,16 @@ input[type=number] {
   let totalItem = $(".btn_ConfirmDelete").length;
   let id;
   console.log(totalItem);
+  //Format giá tiền khi load trang
+  let tongTien=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format($('#totalPrice').data('value'));
+  $('#totalPrice').html("Tổng: "+ tongTien);
+  for(let i=0;i<=totalItem;i++){
+    let price=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format($('#productPrice'+i).data('value'));
+    let productPrice=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format($('#product'+i).data('value'));
+    $('#productPrice'+i).html(price);
+    $("#product"+i).html(productPrice);
+  }
+  //Gán event cho các nút delete
   for(let i=1;i<=totalItem;i++){
     $("#delete"+i).on("click",()=>{
       id = $('#delete'+i).data('id');
@@ -109,6 +119,7 @@ input[type=number] {
       console.log(id);
       });
   }
+  //Thực hiện gọi ajax khi đồng ý xóa
   $(document).off('click', '#btn_Yes').on('click', '#btn_Yes', DeleteItem);
   function DeleteItem(){
     var itemId=$('#btn_Yes').val();
@@ -123,7 +134,10 @@ input[type=number] {
        window.location.href="../cart";
       });
   }
+
+  //Gán sự kiện gọi ajax khi nhấn tăng giảm
   for(let i=1;i<=totalItem;i++){
+
     $('#btn_plus'+i).on('click',()=>{
       let newValue = $('#quantity'+i).val();
       let id=$('#quantity'+i).data('id');
@@ -135,8 +149,14 @@ input[type=number] {
         url: '/cart/inc/' + id,
         type: 'PUT',
       }).then(data=>{
-        total.innerHTML="Tổng: " + data.total + " VNĐ";
-        product.innerHTML=parseInt(product.innerHTML) + data.price + " VNĐ";
+        let tongGiaSp = parseFloat(product.dataset.value)+data.price;
+        let tongTien=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.total);
+        let tongGia=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(tongGiaSp);
+        console.log(parseFloat(data.price))
+        console.log(parseFloat(product.dataset.value))
+        total.innerHTML="Tổng: " + tongTien ;
+        product.innerHTML=tongGia ;
+        product.dataset.value=tongGiaSp;
       });
     });
     $('#btn_minus'+i).on('click',()=>{
@@ -154,8 +174,13 @@ input[type=number] {
           url: '/cart/reduce/' + id,
           type: 'PUT',
         }).then(data=>{
-          total.innerHTML="Tổng: " + data.total + " VNĐ";
-          product.innerHTML=(parseInt(product.innerHTML) - data.price) + " VNĐ";
+          let tongGiaSp = parseFloat(product.dataset.value)-data.price;
+          let tongTien=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.total);
+          let tongGia=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(tongGiaSp);
+          console.log(tongGia)
+          total.innerHTML="Tổng: " + tongTien ;
+          product.innerHTML=tongGia;
+          product.dataset.value= tongGiaSp ;
         });
       }
     });

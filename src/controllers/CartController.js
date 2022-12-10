@@ -27,8 +27,8 @@ class CartController{
                         }
                     }
                     else{
-                        
-                        return res.render('cart',{account})
+                        let sp=[];
+                        return res.render('cart',{account, sp})
                     }
                     
                 }).lean();
