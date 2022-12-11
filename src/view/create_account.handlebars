@@ -9,6 +9,9 @@
               <input type="name" name="username" class="form-control form-control-lg" id="user"
               placeholder="Tài khoản" />
             </div>
+            <div class="text-center">
+              <label class="form-label text-danger text_user d-none">Tên tài khoản không được để trống</label>
+            </div>
             <div class="form-outline mb-4">
               <input type="email" class="form-control form-control-lg"
               placeholder="Email" id="userEmail"/>
@@ -18,8 +21,11 @@
               placeholder="Mật khẩu" />
             </div>
             <div class="form-outline mb-4">
-              <input type="password" class="form-control form-control-lg"
+              <input type="password" class="form-control form-control-lg" id="passwrd_retype"
               placeholder="Nhập lại mật khẩu" />
+            </div>
+            <div class="text-center">
+              <label class="form-label text-danger d-none text_info d-none">Mật khẩu không trùng khớp</label>
             </div>
             {{#checkUser account/role}}
             <div class="text-center">
@@ -35,7 +41,7 @@
                 <label class="form-label">Liên hệ admin để được cấp quyền admin cho tài khoản</label>
             </div>
             {{/checkUser}}
-            <button class="btn btn-primary btn-lg px-5" type="submit" onclick="newAccount_request()">Đăng ký</button>
+            <button class="btn btn-primary btn-lg px-5 btn_registry" disabled type="submit" onclick="newAccount_request()">Đăng ký</button>
             </div>
             <div>
               <p class="mb-0">Bạn đã có tài khoản? <a href="../login" class="fw-bold text-decoration-none text-primary">Đăng nhập</a></p>
@@ -47,7 +53,44 @@
 </div>
 
 <script>
-    let check=document.getElementById("checkExist");
+    let validUser=false, validPassword=false, validEmail=false;
+    function validAccount(){
+      if(validUser==true && validPassword==true){
+        $(".btn_registry").attr("disabled", false);
+      }
+      else{
+        $('.btn_registry').attr("disabled", true);
+      }
+    }
+
+    $("#user").on('change',()=>{
+      if($('#user').val()==''){
+        $('.text_user').removeClass('d-none');
+        validUser=false;
+        validAccount
+      }
+      else{
+        $('.text_user').addClass('d-none');
+        validUser=true;
+        validAccount();
+      }
+    });
+
+    $("#passwrd_retype").on('change',()=>{
+      let password=$("#passwrd").val();
+      let password_retype=$("#passwrd_retype").val();
+    
+      if(password!==password_retype){
+        $(".text_info").removeClass('d-none');
+        validPassword=false;
+        validAccount
+      }
+      else{
+        $(".text_info").addClass('d-none');
+        validPassword=true;
+        validAccount();
+      }
+    });
     function newAccount_request(){
         $.ajax({
             url: '/login/new/create',
