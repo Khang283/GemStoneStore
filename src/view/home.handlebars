@@ -195,7 +195,7 @@
         slickDots[count - 1].classList.remove('slick-active');
         slickTrack.style.transition = `transform 0.5s ease-in-out`;
         count = arrowL ? --count : ++count;
-        console.log('count - ' + count);
+        //console.log('count - ' + count);
         slickTrack.style.transform = `translate3d(${-size * count}px,0px,0px)`;
         eleIsClicked = count - 1;
         switch (count) {
@@ -217,7 +217,7 @@
             run_clearInterval();
             slickTrack.style.transition = `transform 0.5s ease-in-out`;
             count = Number(elem.textContent);
-            console.log("eleIsClicked - btn - " + eleIsClicked)
+            //console.log("eleIsClicked - btn - " + eleIsClicked)
             slickDots[eleIsClicked].classList.remove('slick-active');
             slickDots[count - 1].classList.add('slick-active');
             slickTrack.style.transform = `translate3d(${-size * count}px,0px,0px)`;
@@ -233,7 +233,7 @@
           slickDots[count - 1].classList.remove('slick-active');
           slickTrack.style.transition = "transform 0.5s ease-in-out";
           slickTrack.style.transform = `translate3d(${-size * (++count)}px,0px,0px)`;
-          console.log('count - ' + (count))
+          //console.log('count - ' + (count))
           eleIsClicked = count - 1;
           if (count === slickSlice.length - 1) {
             slickDots[0].classList.add('slick-active');
@@ -259,7 +259,7 @@
       })
     }, false)
 
-    //let price = document.querySelectorAll('.price_format');
-    //ConvertToVND (price);
+    let price = document.querySelectorAll('.price_format');
+    ConvertToVND(price);
   </script>
 </div>

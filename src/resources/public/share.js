@@ -1,6 +1,6 @@
 function ConvertToVND(a){
     
-    for(let i=0;i<=a.length;i++){
+    for(let i=0;i<a.length;i++){
         let price_value = a[i].dataset.value;
         let value = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price_value);
         a[i].innerHTML=value;
