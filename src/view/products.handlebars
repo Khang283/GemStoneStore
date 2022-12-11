@@ -69,7 +69,6 @@
   </div>
 
   <script>
-    
     let value = {{ page }};
 
     const idPages = document.querySelectorAll('.number-page li');
@@ -107,8 +106,7 @@
       let value_new = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price_value);
       price.innerHTML = value_new;
     } */
-    let price = document.querySelectorAll('.price_format');
-    ConvertToVND(price);
+    
     for (let i = 1; i <= total; i++) {
       $("#item" + i).on('click', () => {
         var id = $("#item" + i).data('id');
@@ -123,6 +121,9 @@
         });
       });
     };
+
+    let price = document.querySelectorAll('.price_format');
+    ConvertToVND(price);
 
   </script>
 </div>
