@@ -5,7 +5,7 @@
         </div>
         <div class="col-5">
             <h1>{{products.name}}</h1>
-            <p class="Price">Giá: {{products.price}}</p>
+            <p class="Price" data-value="{{products.price}}" id="productPrice">Giá: {{products.price}}</p>
             <button type="button" class="btn btn-outline-success" data-id="{{products._id}}" id="btn_Item" onclick="addItem()">
                 <i class="bi bi-bag-fill"></i> Thêm vào giỏ hàng</button>
             <button class="btn btn-outline-danger"><i class="bi bi-bag-fill"></i> Mua ngay</button>
@@ -89,6 +89,8 @@
 </div>
 
 <script>
+    let value = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format($('#productPrice').data('value'));
+    $('#productPrice').html(value)
     function addItem(){
         let id=$('#btn_Item').data('id');
         console.log(id);

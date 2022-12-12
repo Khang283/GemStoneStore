@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId=Schema.ObjectId;
 
 const Service = new Schema(
     {
+        serviceId:{
+            type: ObjectId,
+        },
         name: {
             type: String,
             max: 50,
