@@ -1,5 +1,5 @@
 const productsController = require('../controllers/ProductsController');
-const express = require('Express');
+const express = require('express');
 const routes = express.Router();
 
 routes.get('/restore/:_id', productsController.restore)
