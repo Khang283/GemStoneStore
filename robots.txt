@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://jewelry1005.onrender.com/public/sitemaps.xml
+Sitemap: https://jewelry1005.onrender.com/sitemaps.xml
